@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="synthwave">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>skywur | home</title>
+    <link rel="stylesheet" href="src/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+<body class="bg-base-200 text-white">
+    <div
+  id="scroll-progress"
+  class="bg-indigo-600 h-1 fixed top-0 left-0 z-50">
+</div>
+
+<!-- load anim -->
+<div id="wrapper">
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>
+
+<!-- Header -->
+<header class="py-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-2xl font-bold gradient-text ">&lt;skywur&gt;</h1>
+        <nav class="space-x-4">
+            <a href="/" class="btn btn-active">About</a>
+            <a href="/services" class="btn">Services</a>
+            <a href="/projects" class="btn">Projects</a>
+        </nav>
+    </div>
+</header>
+
+
+
+    <!-- Hero Section -->
+    <section class="hero min-h-screen bg-top rounded-3xl" style="background-image: url(glow-bottom.svg)">
+        <div class="container gap-96 flex flex-col items-center md:flex-row p-8 rounded-3xl border border-base-300 bg-opacity-30 bg-base-300 backdrop-blur-lg shadow-lg">
+        <div class="text-left md:w-3/4">
+            <div class="container flex flex-col mx-auto">
+                <div class="flex">
+                    <h1 class="text-9xl pb-4 font-bold font-readex pr-4">i'm</h1>
+                    <h1 class="text-9xl pb-4 font-bold gradient-text">skylar</h1>
+                </div>
+            </div>
+            <p>I'm a <span class="gradient-text font-bold">Full Stack Developer</span> with a deep love for web technologies.</p>
+            <p class="mb-4">with over 5 years of experience, I specialize in <span class="gradient-text font-bold">UI / UX</span> and <span class="gradient-text font-bold">Frontend design</span></p>
+            <p>Ready to build something amazing together?</p>
+                <div class="mt-6 flex space-x-4">
+                    <a id="discord" href="https://discordapp.com/users/272465997435502596" target="_blank" class="text-2xl transition"><i class="fab fa-discord"></i></a>
+                    <a id="twitter" href="https://twitter.com/skywurrr" target="_blank" class="text-2xl"><i class="fab fa-twitter transition"></i></a>
+                    <a id="steam" href="https://steamcommunity.com/id/gocky/" target="_blank" class="text-2xl"><i class="fab fa-steam transition"></i></a>
+                    <a id="spotify" href="https://open.spotify.com/user/m43vazupmnck7ahws81lcbuuz?si=a3a7a5737efa4500" target="_blank" class="text-2xl"><i class="fab fa-spotify transition"></i></a>
+                </div>
+                <div class="flex flex-col mt-12">
+                    <p class="text-lg font-bold">i'm listening to...</p>
+                    <div id="nowPlayingContainer">
+                        <div class="nowPlayingBox">
+                            <div class="bg-base-300" style="width: 400px; height: 120px; display:flex; border-radius: 25px;">
+                                    <div id="trackArtwork"><div class="skeleton bg-base-200 m-2" style="height: 100px; aspect-ratio: 1;"></div></div>
+                                    <div class="trackInfo">
+                                            <p id="trackName" class="skeleton bg-base-200 w-36 h-4"></p>
+                                            <div id="artist" class="skeleton bg-base-200 w-24 h-4 mt-1"></div>
+                                            <img class="spotifyLogo" src="spotify.png">
+                                    </div>
+                            </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="md:w-1/2 mt-8 md:mt-0 flex flex-col">
+                <img src="pfptest.png" alt="Skylar's Image" class="rounded-lg">
+                <p class="text-center mt-4 font-readex">art by <a href="https://example.com" target="_blank" class="gradient-text font-bold">Hazel</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services py-12">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-8">What do I do?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card bg-base-100 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Frontend Development</h3>
+                    <p class="mb-4">Building beautiful, responsive websites</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span id="html" class="inline-block bg-indigo-600 text-white px-3 py-1 rounded-full">HTML</span>
+                        <span id="css" class="inline-block bg-indigo-600 text-white px-3 py-1 rounded-full">CSS</span>
+                        <span id="js" class="inline-block bg-indigo-600 text-white px-3 py-1 rounded-full">JS</span>
+                        <span id="tailwind" class="inline-block bg-indigo-600 text-white px-3 py-1 rounded-full">Tailwind</span>
+                        <span id="daisyui" class="inline-block bg-indigo-600 text-white px-3 py-1 rounded-full">DaisyUI</span>
+                    </div>
+                </div>
+                <div class="card bg-base-100 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">UI/UX Design</h3>
+                    <p class="mb-4">Creating user-friendly and visually appealing designs.</p>
+                    
+                </div>
+                <div class="card bg-base-100 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Backend Development</h3>
+                    <p class="mb-4">Developing robust and scalable server-side applications, APIs, and databases.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span id="node" class="inline-block bg-indigo-600 text-white px-3 py-1 rounded-full">Node.js</span>
+                        <span id="express" class="inline-block bg-indigo-600 text-white px-3 py-1 rounded-full">Express.js</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-no-repeat bg-cover rounded-3xl" style="background-image: url(glow-top.svg)">
+    <!-- Projects Section -->
+    <section class="projects py-12">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-8">Latest Projects</h2>
+            <div id="projects" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-base-100 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between" data-tilt="" data-tiltdata-tilt-scale="1.1" data-tilt-max="2" data-tilt-perspective="500">
+                    <img src="images/skywur.png" alt="skywur.cc" class="w-full h-48 object-cover rounded-t-lg">
+                    <h3 class="text-xl font-semibold mt-4 gradient-text">skywur.cc</h3>
+                    <p class="text-gray-500 text-sm mb-2">October 2024 - Current</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span id="html" class="text-xs font-semibold px-2 py-1 rounded">HTML</span>
+                        <span id="tailwind" class="text-xs font-semibold px-2 py-1 rounded">Tailwind</span>
+                        <span id="daisyui" class="text-xs font-semibold px-2 py-1 rounded bg-indigo-600">Daisyui</span>
+                        <span id="js" class="text-xs font-semibold px-2 py-1 rounded">JS</span>
+                    </div>
+                    <p class="mb-4">This website! Currently acting as my main portfolio and links site. I've gone through so many revisions of this site, so it's likely that you're looking at something totally different from what I am right now writing this!</p>
+                    <a href="/" class="btn btn-primary w-1/3">View Project</a>
+                </div>
+                <div class="bg-base-100 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between" data-tilt="" data-tiltdata-tilt-scale="1.1" data-tilt-max="2" data-tilt-perspective="500">
+                    <img src="images/skywurold.png" alt="CSS Project" class="w-full h-48 object-cover rounded-t-lg">
+                    <h3 class="text-xl font-semibold mt-4 gradient-text">Old skywur.cc</h3>
+                    <p class="text-gray-500 text-sm mb-2">February 2022 - October 2024</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span id="html" class="text-xs font-semibold px-2 py-1 rounded">HTML</span>
+                        <span id="css" class="text-xs font-semibold px-2 py-1 rounded">CSS</span>
+                        <span id="js" class="text-xs font-semibold px-2 py-1 rounded">JS</span>
+                    </div>
+                    <p class="mb-4">Previous iteration of my main portfolio site. Check it out and see how I've improved!</p>
+                    <a href="https://skywur.github.io/skywur.cc" class="btn btn-primary w-1/3">View Project</a>
+                </div>
+                <div class="bg-base-100 bg-opacity-50 p-6 rounded-lg shadow-lg flex flex-col justify-between" data-tilt="" data-tiltdata-tilt-scale="1.1" data-tilt-max="2" data-tilt-perspective="500">
+                    <img src="images/t4tgg.png" alt="CSS Project" class="w-full h-48 object-cover rounded-t-lg">
+                    <h3 class="text-xl font-semibold mt-4 gradient-text">t4t.gg</h3>
+                    <p class="text-gray-500 text-sm mb-2">March 2023 - Current</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span id="html" class="text-xs font-semibold px-2 py-1 rounded">HTML</span>
+                        <span id="css" class="text-xs font-semibold px-2 py-1 rounded">CSS</span>
+                        <span id="js" class="text-xs font-semibold px-2 py-1 rounded">JS</span>
+                        <span id="node" class="text-xs font-semibold px-2 py-1 rounded">Node.js</span>
+                        <span id="express" class="text-xs font-semibold px-2 py-1 rounded">Express.js</span>
+                    </div>
+                    <p class="mb-4">Private, in-development link-in-bio website originally made to give my friends a custom place to put their links.</p>
+                    <p class="mb-4">Not Currently hosted.</p>
+                    <a href="#" class="btn btn-disabled w-1/3">View Project</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Need a Website Section -->
+    <section class="need-website py-12">
+        <div class="container mx-auto flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 text-center ml-24 md:text-left mb-8 md:mb-0">
+                <h2 class="text-3xl font-bold mb-8">Need a Website?</h2>
+                <p class="mb-4 text-lg leading-relaxed">I offer custom web development services tailored to your needs. Whether you need a simple landing page or a complex web application, I can help you bring your vision to life.</p>
+                <a href="services" class="btn btn-primary mt-6">Get Started</a>
+            </div>
+            <div class="md:w-1/3 mx-auto">
+                <div class="mockup-browser bg-base-300 border border-base-300 shadow-lg">
+                    <div class="mockup-browser-toolbar">
+                      <div class="input bg-base-200">https://you.com</div>
+                    </div>
+                    <div class="flex justify-center items-center px-4 py-16 bg-base-200 aspect-video"><i class="fa fa-code text-primary"></i></div>
+                  </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer bg-base-200/60 flex items-center justify-center gap-4 p-6">
+        <div class="flex items-center gap-2 text-xl font-bold gradient-text">
+            <span class="font-bold text-1xl">made with <i class="fas fa-heart gradient-text"></i></span>
+        </div>
+        <div class="text-3xl font-bold gradient-text ml-auto">&lt;/skywur&gt;</div>
+    </footer>
+    <script src="index.js"></script>
+    <script type="text/javascript" src="vanilla-tilt.js"></script>
+</body>
+</html>
