@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="synthwave">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>skywur | services</title>
+    <link rel="stylesheet" href="src/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+<body class="bg-base-200 text-white">
+    <div
+  id="scroll-progress"
+  class="bg-indigo-600 h-1 fixed top-0 left-0 z-50">
+</div>
+
+<!-- load anim -->
+<div id="wrapper">
+    <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</div>
+
+<!-- Header -->
+<header class="py-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <h1 class="text-2xl font-bold gradient-text ">&lt;skywur&gt;</h1>
+        <nav class="space-x-4">
+            <a href="/" class="btn">About</a>
+            <a href="/services" class="btn btn-active">Services</a>
+            <a href="/projects" class="btn">Projects</a>
+        </nav>
+    </div>
+</header>
+
+<div class="w-full min-h-screen rounded-3xl bg-cover" style="background-image: url(glow-bottom.svg)">
+    <!-- Services Section -->
+    <section class="services py-12">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-8 gradient-text">Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card bg-base-100 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Frontend Development</h3>
+                    <p class="mb-4">Building beautiful, responsive websites</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span id="html" class="inline-block bg-indigo-600 text-white px-3 py-1 rounded-full">HTML</span>
+                        <span id="css" class="inline-block bg-indigo-600 text-white px-3 py-1 rounded-full">CSS</span>
+                        <span id="js" class="inline-block bg-indigo-600 text-white px-3 py-1 rounded-full">JS</span>
+                        <span id="tailwind" class="inline-block bg-indigo-600 text-white px-3 py-1 rounded-full">Tailwind</span>
+                        <span id="daisyui" class="inline-block bg-indigo-600 text-white px-3 py-1 rounded-full">DaisyUI</span>
+                    </div>
+                </div>
+                <div class="card bg-base-100 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">UI/UX Design</h3>
+                    <p class="mb-4">Creating user-friendly and visually appealing designs.</p>
+                    
+                </div>
+                <div class="card bg-base-100 p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2">Backend Development</h3>
+                    <p class="mb-4">Developing robust and scalable server-side applications, APIs, and databases.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span id="node" class="inline-block bg-indigo-600 text-white px-3 py-1 rounded-full">Node.js</span>
+                        <span id="express" class="inline-block bg-indigo-600 text-white px-3 py-1 rounded-full">Express.js</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-12">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-8 gradient-text">Pricing</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="pricing-card p-6 bg-base-100 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4">Basic Site</h3>
+                    <p class="text-base-content mb-4">Best for a simple information or promotional site. Like a Linktree!</p>
+                    <p class="text-3xl font-bold gradient-text mb-4">$85</p>
+                    <ul class="list-disc list-inside text-base-content mb-4">
+                        <li>Pages: 1-3</li>
+                        <li>Content: Static information</li>
+                        <li>Backend: None</li>
+                    </ul>
+                </div>
+                <div class="pricing-card p-6 bg-base-100 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4">Standard Site</h3>
+                    <p class="text-base-content mb-4">Ideal for a private site where you need the flexibility to update content regularly.</p>
+                    <p class="text-3xl font-bold gradient-text mb-4">$350</p>
+                    <ul class="list-disc list-inside text-base-content mb-4">
+                        <li>Pages: 4-6</li>
+                        <li>Content: Dynamic content</li>
+                        <li>Backend: Basic backend</li>
+                    </ul>
+                </div>
+                <div class="pricing-card p-6 bg-base-100 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold mb-4">Advanced Site</h3>
+                    <p class="text-base-content mb-4">Perfect for a public site that requires user-generated content or advanced API integrations.</p>
+                    <p class="text-3xl font-bold gradient-text mb-4">$600+</p>
+                    <ul class="list-disc list-inside text-base-content mb-4">
+                        <li>Pages: 7 or more</li>
+                        <li>Content: More advanced dynamic content</li>
+                        <li>Backend: Complex backend with many routes</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8">
+                <h3 class="text-2xl font-bold mb-4 gradient-text">Additionals</h3>
+                <ul class="list-disc list-inside text-base-content mb-4">
+                    <li>$50 Deployment - I'll get your site set up with a hosting provider of your choice</li>
+                    <li>$25-$125+ Later Revisions - Decide later that you want your site reworked or changed? I'll build your vision and only charge for the new work I've done.</li>
+                </ul>
+            </div>
+            <div class="mt-8">
+                <h3 class="text-2xl font-bold mb-4 gradient-text">Delivery Time</h3>
+                <p class="text-base-content mb-4">Totally project dependent - simple sites will probably only take a day or two, larger ones could be several weeks. I do commissions on a first-come-first-serve basis, I won't start working on more than one project at a time. Before we start working together I'll give you a delivery time estimate based on the spec you give me, but I can't promise it will be 100% accurate.</p>
+            </div>
+            <div class="mt-8">
+                <h3 class="text-2xl font-bold mb-4 gradient-text">Payment</h3>
+                <p class="text-base-content mb-4">I accept most payment methods, most preferably is bank transfer. When a project and price is agreed upon, half of the payment is to be made directly, with the other half being made on project completion. At any point between the first payment and the completion payment if you decide you want a refund I am willing to refund half of what you paid me.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section id="cta" class="py-12">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4 gradient-text">Ready to go?</h2>
+            <p class="text-base-content mb-8">Let's bring your vision to life.</p>
+            <a href="https://discordapp.com/users/272465997435502596" class="btn btn-primary">
+                <i class="fab fa-discord"></i> Connect with me through Discord
+            </a>
+        </div>
+    </section>
+
+    </div>
+    
+
+    <footer class="footer bg-base-200/60 flex items-center justify-center gap-4 p-6">
+        <div class="flex items-center gap-2 text-xl font-bold gradient-text">
+            <span class="font-bold text-1xl">made with <i class="fas fa-heart gradient-text"></i></span>
+        </div>
+        <div class="text-3xl font-bold gradient-text ml-auto">&lt;/skywur&gt;</div>
+    </footer>
+    <script src="index.js"></script>
+    <script type="text/javascript" src="vanilla-tilt.js"></script>
+</body>
+</html>
