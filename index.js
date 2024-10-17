@@ -5,6 +5,24 @@ window.addEventListener('load', function() {
     const wrapper = document.getElementById("wrapper");
     wrapper.style.opacity = "0";
     wrapper.addEventListener('transitionend', () => wrapper.remove());
+
+    
+    // Add mousemove event to projects
+    try {
+        document.getElementById("projects").onmousemove = e => {
+            for(const card of document.getElementsByClassName("project")) {
+                const rect = card.getBoundingClientRect(),
+                x = e.clientX - rect.left,
+                y = e.clientY - rect.top;
+
+            
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            };
+          };
+    } catch (error) {
+        console.error('Error adding mousemove event:', error);
+    }
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -44,17 +62,7 @@ fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${las
     })
     .catch(error => console.error('Error fetching data:', error));
 
-
-document.getElementById("projects").onmousemove = e => {
-    for(const card of document.getElementsByClassName("project")) {
-        const rect = card.getBoundingClientRect(),
-        x = e.clientX - rect.left,
-        y = e.clientY - rect.top;
-
-        card.style.setProperty("--mouse-x", `${x}px`);
-        card.style.setProperty("--mouse-y", `${y}px`);
-    };
-  };
+    // Scroll progress bar
 
   window.addEventListener("scroll", function () {
     const scrollableHeight =
