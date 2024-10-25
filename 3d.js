@@ -13,7 +13,7 @@ const particleImage = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/605067/parti
     particleColor = '0xFFFFFF',
     particleSize = .1;
 
-const defaultAnimationSpeed = 1,
+const defaultAnimationSpeed = 1.25,
 morphAnimationSpeed = 1;
 
 // Triggers
@@ -45,17 +45,6 @@ var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHei
 camera.position.y = 0;
 camera.position.z = 25;
 
-// controls
-let controls = new THREE.OrbitControls(camera);
-
-// to disable zoom
-controls.enableZoom = false;
-
-// to disable rotation
-controls.enableRotate = false;
-
-// to disable pan
-controls.enablePan = false;
 
 // Lighting
 var light = new THREE.AmbientLight(0x404040, 10); // soft white light
@@ -243,7 +232,7 @@ setTimeout(toHome, 250);
 
 
 function toHome() {
-    morphTo(homeParticles, '0xffffff');
+    morphTo(homeParticles, '0x837cfc');
     console.log('home')
 }
 
@@ -325,4 +314,6 @@ function handleTriggers(disable) {
         }
     }
 }
+toHome();
+
 }

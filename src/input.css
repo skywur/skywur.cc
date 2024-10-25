@@ -10,6 +10,10 @@ body {
     font-family: 'Readex Pro', sans-serif;
 }
 
+::selection {
+    background: #b08df0;
+  }
+
 /* layout.css */
 #nowPlayingContainer {
     margin-top: 19px;
@@ -162,6 +166,9 @@ body {
     background: linear-gradient(90deg, #6b46c1, #b794f4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+.gradient-bg {
+    background-image: linear-gradient(90deg, #6b46c1, #b794f4);
 }
 #discord:hover {
     color: #7289da;
