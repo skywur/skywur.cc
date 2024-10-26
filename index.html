@@ -56,7 +56,7 @@
 <header class="py-4">
     <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-2xl font-bold gradient-text ">&lt;skywur&gt;</h1>
-        <nav class="space-x-4">
+        <nav class="space-x-4 flex">
             <a href="/" class="btn btn-active">About</a>
             <a href="/services" class="btn">Services</a>
             <a href="/projects" class="btn">Projects</a>
@@ -64,57 +64,66 @@
     </div>
 </header>
 
+<!-- Desktop View Notice -->
+<div class="bg-secondary text-center py-2 flex justify-center md:hidden">
+    <p class="text-secondary-content">This site is best viewed on desktop</p>
+    <button class="close-icon pl-8" onclick="this.parentElement.style.display='none';">
+        <i class="fas fa-times"></i>
+    </button>
+</div>
 
 
     <!-- Hero Section -->
     <section class="hero min-h-screen bg-top rounded-3xl" style="background-image: url(glow-bottom.svg)">
-        <div class="container gap-96 flex flex-col items-center md:flex-row p-8 rounded-3xl border border-base-300 bg-opacity-30 bg-base-300 backdrop-blur-lg shadow-lg">
-        <div class="text-left md:w-3/4">
-            <div class="container flex flex-col mx-auto">
-                <div class="flex logo">
-                    <h1 class="text-9xl pb-4 font-bold font-readex pr-4">i'm</h1>
-                    <h1 class="text-9xl pb-4 font-bold gradient-text">skylar</h1>
-                </div>
-            </div>
-            <p>I'm a <span class="gradient-text font-bold">Full Stack Developer</span> with a deep love for web technologies.</p>
-            <p class="mb-4">with over 5 years of experience, I specialize in <span class="gradient-text font-bold">UI / UX</span> and <span class="gradient-text font-bold">Frontend design</span></p>
-            <p>Ready to build something amazing together?</p>
-                <div class="mt-6 flex space-x-4 triggers">
-                    <a id="discord" href="https://discordapp.com/users/272465997435502596" target="_blank" class="text-2xl transition"><i class="fab fa-discord"></i></a>
-                    <a id="twitter" href="https://twitter.com/skywurrr" target="_blank" class="text-2xl"><i class="fab fa-twitter transition"></i></a>
-                    <a id="steam" href="https://steamcommunity.com/id/gocky/" target="_blank" class="text-2xl"><i class="fab fa-steam transition"></i></a>
-                    <a id="spotify" href="https://open.spotify.com/user/m43vazupmnck7ahws81lcbuuz?si=a3a7a5737efa4500" target="_blank" class="text-2xl"><i class="fab fa-spotify transition"></i></a>
-                </div>
-                <div class="flex flex-col mt-12">
-                    <p class="text-lg font-bold">i'm listening to...</p>
-                    <div id="nowPlayingContainer">
-                        <div class="nowPlayingBox">
-                            <div class="bg-base-300" style="width: 400px; height: 120px; display:flex; border-radius: 25px;">
-                                    <div id="trackArtwork"><div class="skeleton bg-base-200 m-2" style="height: 100px; aspect-ratio: 1;"></div></div>
-                                    <div class="trackInfo">
-                                            <p id="trackName" class="skeleton bg-base-200 w-36 h-4"></p>
-                                            <div id="artist" class="skeleton bg-base-200 w-24 h-4 mt-1"></div>
-                                            <img class="spotifyLogo" src="spotify.png">
-                                    </div>
-                            </div>
-                    </div>
+        <div class="md:container md:gap-96 flex flex-col items-center md:flex-row p-8 rounded-3xl border border-base-300 bg-opacity-30 bg-base-300 backdrop-blur-lg shadow-lg">
+            <div class="text-left w-4/5">
+                <div class="container flex flex-col mx-auto">
+                    <div class="flex logo">
+                        <h1 class="md:text-9xl text-6xl pb-4 font-bold font-readex pr-4">i'm</h1>
+                        <h1 class="md:text-9xl text-6xl pb-4 font-bold gradient-text">skylar</h1>
                     </div>
                 </div>
-            </div>
-            <div class="" id="canvas-container">
-    
-                <canvas id="canvas" style="transform: translate(-30%, 0); z-index: -100;"></canvas>
-    
-                <!--
-                <img src="pfptest.png" alt="Skylar's Image" class="rounded-lg">
-                <p class="text-center mt-4 font-readex">art by <a href="https://example.com" target="_blank" class="gradient-text font-bold">Hazel</a></p>
-                -->
+                <p>I'm a <span class="gradient-text font-bold">Full Stack Developer</span> with a deep love for web technologies.</p>
+                <p class="mb-4">with over 5 years of experience, I specialize in <span class="gradient-text font-bold">UI / UX</span> and <span class="gradient-text font-bold">Frontend design</span></p>
+                <p>Ready to build something amazing together?</p>
+                    <div class="mt-6 flex space-x-4 triggers justify-center md:justify-normal md:mx-0">
+                        <a id="discord" href="https://discordapp.com/users/272465997435502596" target="_blank" class="text-2xl transition"><i class="fab fa-discord"></i></a>
+                        <a id="twitter" href="https://twitter.com/skywurrr" target="_blank" class="text-2xl"><i class="fab fa-twitter transition"></i></a>
+                        <a id="steam" href="https://steamcommunity.com/id/gocky/" target="_blank" class="text-2xl"><i class="fab fa-steam transition"></i></a>
+                        <a id="spotify" href="https://open.spotify.com/user/m43vazupmnck7ahws81lcbuuz?si=a3a7a5737efa4500" target="_blank" class="text-2xl"><i class="fab fa-spotify transition"></i></a>
+                    </div>
+
+                    <div class="hidden md:flex flex-col mt-12">
+                        <p class="text-lg font-bold">i'm listening to...</p>
+                        <div id="nowPlayingContainer" class="">
+                            <div class="nowPlayingBox">
+                                <div class="bg-base-300" style="width: 400px; height: 120px; display:flex; border-radius: 25px;">
+                                        <div id="trackArtwork"><div class="skeleton bg-base-200 m-2" style="height: 100px; aspect-ratio: 1;"></div></div>
+                                        <div class="trackInfo">
+                                                <p id="trackName" class="skeleton bg-base-200 w-36 h-4"></p>
+                                                <div id="artist" class="skeleton bg-base-200 w-24 h-4 mt-1"></div>
+                                                <img class="spotifyLogo" src="spotify.png">
+                                        </div>
+                                </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:block" id="canvas-container">
+                
+                    <canvas id="canvas" style="transform: translate(-30%, 0); z-index: -100;"></canvas>
+                
+                    <!--
+                    <img src="pfptest.png" alt="Skylar's Image" class="rounded-lg">
+                    <p class="text-center mt-4 font-readex">art by <a href="https://example.com" target="_blank" class="gradient-text font-bold">Hazel</a></p>
+                    -->
+                </div>
             </div>
         </div>
     </section>
 
     <!-- About Me Section -->
-    <section class="about-me py-12">
+    <section class="about-me py-12 px-8 md:px-0">
         <div class="container mx-auto flex flex-col md:flex-row items-center justify-center">
             <div class="md:w-1/5 flex flex-col justify-center items-center mb-8 md:mb-0">
                 <img src="pfp.png" alt="pfp" class="w-2/3 aspect-square object-cover rounded-full">
@@ -182,14 +191,14 @@
     </section>
 
     <!-- Need a Website Section -->
-    <section class="need-website py-12">
+    <section class="need-website py-12 px-8 md:px-0">
         <div class="container mx-auto flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 text-center ml-24 md:text-left mb-8 md:mb-0">
+            <div class="md:w-1/2 text-center md:ml-24 md:text-left mb-8 md:mb-0">
                 <h2 class="text-3xl font-bold mb-8">Need a Website?</h2>
                 <p class="mb-4 text-lg leading-relaxed">I offer custom web development services tailored to your needs. Whether you need a simple landing page or a complex web application, I can help you bring your vision to life.</p>
                 <a href="services" class="btn btn-primary mt-6">Get Started</a>
             </div>
-            <div class="md:w-1/3 mx-auto">
+            <div class="md:w-1/3 hidden md:block mx-auto">
                 <div class="mockup-browser bg-base-300 border border-base-300 shadow-lg">
                     <div class="mockup-browser-toolbar">
                       <div class="input bg-base-200">https://you.com</div>
