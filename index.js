@@ -73,7 +73,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 try {
-    document.getElementById("age").innerText = new Date().getFullYear() - 2005;
+    const birthDate = new Date(2005, 6); // July is month 6 (0-indexed)
+    const ageDifMs = Date.now() - birthDate.getTime();
+    const ageDate = new Date(ageDifMs); // miliseconds from epoch
+    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+    document.getElementById("age").innerText = age;
 } catch (error) {
     console.error('age element does not exist');
 }
