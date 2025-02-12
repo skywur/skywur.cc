@@ -314,6 +314,6 @@ function handleTriggers(disable) {
         }
     }
 }
-toHome();
 
 }
+toHome();
