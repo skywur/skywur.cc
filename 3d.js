@@ -71,8 +71,8 @@
     scene.add(particleSystem);
 
     // Add these constants for easy glow customization
-    const GLOW_SIZE_MULTIPLIER = 2.0;
-    const GLOW_OPACITY = 0.4;
+    const GLOW_SIZE_MULTIPLIER = 1.0;
+    const GLOW_OPACITY = 0.2;
 
     // Create a second particle system with slightly larger, semi-transparent material
     const glowMaterial = new THREE.PointCloudMaterial({
