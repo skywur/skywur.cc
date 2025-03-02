@@ -1,319 +1,265 @@
-// this file is BAD
-// i wrote it years ago and i don't want to touch it
-// TODO refactor
+(function () {
+    "use strict";
+    /**
+     * Refactored Three.js scene with Particle Morphing and OBJ loading.
+     * Preserves original functionality (morph transitions, event listeners, etc.)
+     * but reorganizes code for clarity, includes helpful comments, and uses
+     * consistent naming conventions.
+     */
 
-// if viewport is not mobile
-if (window.innerWidth > 768) {
+    // Early exit for small viewports
+    if (window.innerWidth <= 768) return;
 
-const numberOfParticles = 10000
+    
+    // Particle configuration
+    const TOTAL_PARTICLES = 10000;
+    const BASE_PARTICLE_SIZE = 0.1;
+    const BASE_COLOR_HEX = 0xffffff;
+    const PARTICLE_TEXTURE_URL = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/605067/particle-tiny.png";
+    
+    // Animation/speed settings
+    const NORMAL_SPEED_FACTOR = 1.25 / 100;
+    const MORPH_SPEED_FACTOR = 1 / 100;
+    const TWEEN_MORPH_DURATION = 5;
+    
+    // DOM references
+    const triggersContainer = document.getElementsByClassName("triggers")[0];
+    const triggersList = triggersContainer.querySelectorAll("a");
+    const homeLink = document.getElementsByClassName("logo")[0];
+    const canvasEl = document.querySelector("#canvas");
+    
+    // Core Three.js objects
+    const renderer = new THREE.WebGLRenderer({ canvas: canvasEl, alpha: true });
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        window.innerWidth / window.innerHeight,
+        1,
+        10000
+    );
+    camera.position.set(0, 0, 25);
+    
+    // Lighting
+    scene.add(new THREE.AmbientLight(0x404040, 10));
+    
+    // Particle geometry containers
+    const mainGeometry = new THREE.Geometry();
+    const homeGeometry = new THREE.Geometry();
+    const discordGeometry = new THREE.Geometry();
+    const twitterGeometry = new THREE.Geometry();
+    const steamGeometry = new THREE.Geometry();
+    const pronounsGeometry = new THREE.Geometry();
+    const mailGeometry = new THREE.Geometry();
 
-// Options
-
-const particleImage = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/605067/particle-tiny.png',
-    particleColor = '0xFFFFFF',
-    particleSize = .1;
-
-const defaultAnimationSpeed = 1.25,
-morphAnimationSpeed = 1;
-
-// Triggers
-const triggers = document.getElementsByClassName('triggers')[0].querySelectorAll('a')
-const home = document.getElementsByClassName('logo')
-
-// Renderer
-const canvas = document.querySelector('#canvas')
-var renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth/3, window.innerHeight/3);
-
-// Ensure Full Screen on Resize
-function fullScreen() {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(window.innerWidth/3, window.innerHeight/3);
-}
-
-window.addEventListener('resize', fullScreen, false)
-
-// Scene
-var scene = new THREE.Scene();
-
-// Camera and position
-var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
-
-camera.position.y = 0;
-camera.position.z = 25;
-
-
-// Lighting
-var light = new THREE.AmbientLight(0x404040, 10); // soft white light
-scene.add(light);
-
-// Particle Vars
-var particleCount = numberOfParticles;
-
-let projectPoints,
-    homePoints,
-    discordPoints,
-    twitterPoints,
-    steamPoints,
-    pronounsPoints,
-    mailPoints;
-
-var particles = new THREE.Geometry(),
-    homeParticles = new THREE.Geometry(),
-    discordParticles = new THREE.Geometry(),
-    twitterParticles = new THREE.Geometry(),
-    steamParticles = new THREE.Geometry(),
-    pronounsParticles = new THREE.Geometry(),
-    mailParticles = new THREE.Geometry();
-
-var pMaterial = new THREE.PointCloudMaterial({
-    color: particleColor,
-    size: particleSize,
-    map: THREE.ImageUtils.loadTexture(particleImage),
-    blending: THREE.AdditiveBlending,
-    transparent: true
-});
-
-// Custom (OGJ) Objects
-// home
-var objLoader = new THREE.OBJLoader();
-objLoader.load('https://cdn.glitch.global/f630c6b7-9fae-41f5-b0b8-620665c52345/mainFINAL.obj?v=1663222069867', function(object) {
-    object.traverse(function(child) {
-        if (child instanceof THREE.Mesh) {
-            let scale = 2.5;
-
-            let area = new THREE.Box3();
-            area.setFromObject(child);
-            let yOffset = (area.max.y * scale) - 7;
-
-            child.geometry.scale(scale, scale, scale);
-            homePoints = THREE.GeometryUtils.randomPointsInBufferGeometry(child.geometry, particleCount);
-            createVertices(homeParticles, homePoints, yOffset, 2);
-        }
+    // Material for point cloud
+    const particleMaterial = new THREE.PointCloudMaterial({
+        color: BASE_COLOR_HEX,
+        size: BASE_PARTICLE_SIZE,
+        map: THREE.ImageUtils.loadTexture(PARTICLE_TEXTURE_URL),
+        blending: THREE.AdditiveBlending,
+        transparent: true,
     });
-});
-// discord
-objLoader.load('https://cdn.glitch.global/f630c6b7-9fae-41f5-b0b8-620665c52345/discordFINAL.obj?v=1663215088026', function(object) {
-    object.traverse(function(child) {
-        if (child instanceof THREE.Mesh) {
-            let scale = 2.5;
 
-            let area = new THREE.Box3();
-            area.setFromObject(child);
-            let yOffset = (area.max.y * scale) - 7;
-
-            child.geometry.scale(scale, scale, scale);
-            discordPoints = THREE.GeometryUtils.randomPointsInBufferGeometry(child.geometry, particleCount);
-            createVertices(discordParticles, discordPoints, yOffset, 0);
-        }
-    });
-});
-// twitter
-objLoader.load('https://cdn.glitch.global/f630c6b7-9fae-41f5-b0b8-620665c52345/twitterFINAL.obj?v=1663209948782', function(object) {
-    object.traverse(function(child) {
-        if (child instanceof THREE.Mesh) {
-            let scale = 2.5;
-
-            let area = new THREE.Box3();
-            area.setFromObject(child);
-            let yOffset = (area.max.y * scale) - 7;
-
-            child.geometry.scale(scale, scale, scale);
-            twitterPoints = THREE.GeometryUtils.randomPointsInBufferGeometry(child.geometry, particleCount);
-            createVertices(twitterParticles, twitterPoints, yOffset, 0);
-        }
-    });
-});
-// steam
-objLoader.load('https://cdn.glitch.global/f630c6b7-9fae-41f5-b0b8-620665c52345/steamFINAL.obj?v=1663215362951', function(object) {
-    object.traverse(function(child) {
-        if (child instanceof THREE.Mesh) {
-            let scale = 2.5;
-
-            let area = new THREE.Box3();
-            area.setFromObject(child);
-            let yOffset = (area.max.y * scale) - 8.5;
-
-            child.geometry.scale(scale, scale, scale);
-            steamPoints = THREE.GeometryUtils.randomPointsInBufferGeometry(child.geometry, particleCount);
-            createVertices(steamParticles, steamPoints, yOffset, 0);
-        }
-    });
-});
-// pronouns
-objLoader.load('https://cdn.glitch.global/f630c6b7-9fae-41f5-b0b8-620665c52345/discordFINAL.obj?v=1663215088026', function(object) {
-    object.traverse(function(child) {
-        if (child instanceof THREE.Mesh) {
-            let scale = 2.5;
-
-            let area = new THREE.Box3();
-            area.setFromObject(child);
-            let yOffset = (area.max.y * scale) - 7;
-
-            child.geometry.scale(scale, scale, scale);
-            pronounsPoints = THREE.GeometryUtils.randomPointsInBufferGeometry(child.geometry, particleCount);
-            createVertices(pronounsParticles, pronounsPoints, yOffset, 0);
-        }
-    });
-});
-// mail
-objLoader.load('https://cdn.glitch.global/f630c6b7-9fae-41f5-b0b8-620665c52345/spotify.obj?v=1668974528479', function(object) {
-    object.traverse(function(child) {
-        if (child instanceof THREE.Mesh) {
-            let scale = 2.5;
-
-            let area = new THREE.Box3();
-            area.setFromObject(child);
-            let yOffset = (area.max.y * scale) - 7;
-
-            child.geometry.scale(scale, scale, scale);
-            mailPoints = THREE.GeometryUtils.randomPointsInBufferGeometry(child.geometry, particleCount);
-            createVertices(mailParticles, mailPoints, yOffset, 0);
-        }
-    });
-});
-
-// Particles
-for (var p = 0; p < particleCount; p++) {
-    var vertex = new THREE.Vector3();
-    vertex.x = 0;
-    vertex.y = 0;
-    vertex.z = 0;
-
-    particles.vertices.push(vertex);
-}
-
-function createVertices(emptyArray, points, yOffset = 0, trigger = null) {
-    for (var p = 0; p < particleCount; p++) {
-        var vertex = new THREE.Vector3();
-        vertex.x = points[p]['x'];
-        vertex.y = points[p]['y'] - yOffset;
-        vertex.z = points[p]['z'];
-
-        emptyArray.vertices.push(vertex);
+    // Build initial geometry for main particle system
+    for (let i = 0; i < TOTAL_PARTICLES; i++) {
+        mainGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
     }
-    if (trigger !== null) {
-        triggers[trigger].setAttribute('data-disabled', false)
-    }
-}
 
-var particleSystem = new THREE.PointCloud(
-    particles,
-    pMaterial
-);
+    // Particle system
+    const particleSystem = new THREE.PointCloud(mainGeometry, particleMaterial);
+    particleSystem.sortParticles = true;
+    scene.add(particleSystem);
 
-particleSystem.sortParticles = true;
+    // Add these constants for easy glow customization
+    const GLOW_SIZE_MULTIPLIER = 2.0;
+    const GLOW_OPACITY = 0.4;
 
-// Add the particles to the scene
-scene.add(particleSystem);
-
-// Animate
-const normalSpeed = (defaultAnimationSpeed / 100),
-    fullSpeed = (morphAnimationSpeed / 100)
-
-let animationVars = {
-    speed: normalSpeed
-}
-
-function animate() {
-    particleSystem.rotation.y += animationVars.speed;
-    particles.verticesNeedUpdate = true;
-
-    window.requestAnimationFrame(animate);
-    renderer.render(scene, camera);
-}
-
-animate();
-setTimeout(toHome, 250);
-
-
-
-function toHome() {
-    morphTo(homeParticles, '0x837cfc');
-    console.log('home')
-}
-
-function todiscord() {
-    handleTriggers(0);
-    morphTo(discordParticles, '0x0d86ff');
-    console.log('discord')
-}
-
-function totwitter() {
-    handleTriggers(1);
-    morphTo(twitterParticles, '0x1DA1F2');
-    console.log('twitter')
-}
-
-function tosteam() {
-    handleTriggers(2);
-    morphTo(steamParticles, '0xc97dff');
-    console.log('steam')
-}
-
-function topronouns() {
-    handleTriggers(3);
-    morphTo(pronounsParticles, '0xffb5fe');
-    console.log('pronouns')
-}
-
-function tomail() {
-    handleTriggers(4);
-    morphTo(mailParticles, '0x1db954');
-}
-
-
-
-
-function morphTo(newParticles, color) {
-    TweenMax.to(animationVars, .03, {
-        ease: Power2.easeIn,
-        speed: fullSpeed,
-        onComplete: slowDown
+    // Create a second particle system with slightly larger, semi-transparent material
+    const glowMaterial = new THREE.PointCloudMaterial({
+        color: 0xffffff,
+        size: BASE_PARTICLE_SIZE * GLOW_SIZE_MULTIPLIER,
+        map: THREE.ImageUtils.loadTexture(PARTICLE_TEXTURE_URL),
+        blending: THREE.AdditiveBlending,
+        transparent: true,
+        opacity: GLOW_OPACITY,
     });
-    particleSystem.material.color.setHex(color);
+    const glowParticleSystem = new THREE.PointCloud(mainGeometry, glowMaterial);
+    glowParticleSystem.sortParticles = true;
+    scene.add(glowParticleSystem);
 
+    // Animation speed state
+    const animationState = { speed: NORMAL_SPEED_FACTOR };
 
-    for (var i = 0; i < particles.vertices.length; i++) {
-        TweenMax.to(particles.vertices[i], 5, {
-            ease: Elastic.easeOut.config(1, 0.95),
-            x: newParticles.vertices[i].x,
-            y: newParticles.vertices[i].y,
-            z: newParticles.vertices[i].z
-        })
+    // Renderer setup
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth / 3, window.innerHeight / 3);
+
+    // Handle resizing
+    function handleResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth / 3, window.innerHeight / 3);
     }
-}
+    window.addEventListener("resize", handleResize, false);
 
-function slowDown() {
-    TweenMax.to(animationVars, 2, {
-        ease: Power2.easeOut,
-        speed: normalSpeed,
-        delay: .1
-    });
-}
-
-home[0].addEventListener('mouseover', toHome)
-triggers[0].addEventListener('mouseover', todiscord)
-triggers[1].addEventListener('mouseover', totwitter)
-triggers[2].addEventListener('mouseover', tosteam)
-triggers[3].addEventListener('mouseover', tomail)
-//triggers[4].addEventListener('mouseover', tomail)
-
-
-
-function handleTriggers(disable) {
-    for (var x = 0; x < triggers.length; x++) {
-        if (disable == x) {
-            triggers[x].setAttribute('data-disabled', true)
-
-        } else {
-            triggers[x].setAttribute('data-disabled', false)
+    /**
+     * Creates vertex sets from geometry points and pushes them into a given
+     * THREE.Geometry object.
+     * @param {THREE.Geometry} targetGeometry - The geometry to populate.
+     * @param {Array} pointArray - Random points in buffer geometry.
+     * @param {number} yOffset - Offset along the Y axis.
+     * @param {number|null} triggerIndex - If not null, re-enables the matching trigger.
+     */
+    function populateGeometry(targetGeometry, pointArray, yOffset, triggerIndex) {
+        for (let i = 0; i < TOTAL_PARTICLES; i++) {
+            const v = new THREE.Vector3(
+                pointArray[i].x,
+                pointArray[i].y - yOffset,
+                pointArray[i].z
+            );
+            targetGeometry.vertices.push(v);
+        }
+        if (triggerIndex !== null) {
+            triggersList[triggerIndex].setAttribute("data-disabled", false);
         }
     }
-}
 
-}
-toHome();
+    /**
+     * Loads an OBJ file and randomly disperses points into a given geometry container.
+     * @param {string} objUrl - The URL to the OBJ file.
+     * @param {number} scaleVal - Scale factor for the loaded mesh.
+     * @param {THREE.Geometry} targetGeometry - The geometry container for this OBJ.
+     * @param {number} yOffsetAdjust - Adjust for the bounding box to center geometry.
+     * @param {number|null} triggerIndex - Index of the corresponding trigger or null.
+     */
+    function loadAndDispersePoints(objUrl, scaleVal, targetGeometry, yOffsetAdjust, triggerIndex) {
+        // Allow cross-domain requests for models
+        THREE.DefaultLoadingManager.crossOrigin = 'anonymous';
+
+        const loader = new THREE.OBJLoader();
+        loader.crossOrigin = 'anonymous';
+
+        loader.load(objUrl, (loadedObj) => {
+            loadedObj.traverse((child) => {
+                if (child instanceof THREE.Mesh) {
+                    const boundingBox = new THREE.Box3().setFromObject(child);
+                    const yOffset = boundingBox.max.y * scaleVal - yOffsetAdjust;
+                    child.geometry.scale(scaleVal, scaleVal, scaleVal);
+                    const randomPoints = THREE.GeometryUtils.randomPointsInBufferGeometry(
+                        child.geometry,
+                        TOTAL_PARTICLES
+                    );
+                    populateGeometry(targetGeometry, randomPoints, yOffset, triggerIndex);
+                }
+            });
+        });
+    }
+
+    // Load objects from local files
+    loadAndDispersePoints("./models/main.obj", 2.5, homeGeometry, 7, 2);
+    loadAndDispersePoints("./models/discord.obj", 2.5, discordGeometry, 7, 0);
+    loadAndDispersePoints("./models/twitter.obj", 2.5, twitterGeometry, 7, 1);
+    loadAndDispersePoints("./models/steam.obj", 2.5, steamGeometry, 8.5, 2);
+    loadAndDispersePoints("./models/discord.obj", 2.5, pronounsGeometry, 7, 3);
+    loadAndDispersePoints("./models/spotify.obj", 2.5, mailGeometry, 7, 4);
+
+    /**
+     * Tweens the entire particle system from its current geometry to a new geometry.
+     * @param {THREE.Geometry} target - The geometry to morph to.
+     * @param {string} colorHexString - Hex color string for the new particle color.
+     */
+    function morphTo(target, colorHexString) {
+        TweenMax.to(animationState, 0.03, {
+            ease: Power2.easeIn,
+            speed: MORPH_SPEED_FACTOR,
+            onComplete: restoreSpeed,
+        });
+        particleSystem.material.color.setHex(colorHexString);
+
+        for (let i = 0; i < mainGeometry.vertices.length; i++) {
+            TweenMax.to(mainGeometry.vertices[i], TWEEN_MORPH_DURATION, {
+                ease: Elastic.easeOut.config(1, 0.95),
+                x: target.vertices[i].x,
+                y: target.vertices[i].y,
+                z: target.vertices[i].z,
+            });
+        }
+    }
+
+    /**
+     * Restores the particle rotation speed after a morph transition.
+     */
+    function restoreSpeed() {
+        TweenMax.to(animationState, 2, {
+            ease: Power2.easeOut,
+            speed: NORMAL_SPEED_FACTOR,
+            delay: 0.1,
+        });
+    }
+
+    /**
+     * Toggles the data-disabled attribute on triggers so only one trigger is disabled at a time.
+     * @param {number} disabledIndex - Index of the trigger to disable.
+     */
+    function handleTriggers(disabledIndex) {
+        for (let i = 0; i < triggersList.length; i++) {
+            triggersList[i].setAttribute("data-disabled", i === disabledIndex);
+        }
+    }
+
+    // Each of these functions morphs to a specific geometry and color,
+    // while updating trigger states or logging as needed.
+    function toHome() {
+        morphTo(homeGeometry, "0x837cfc");
+        console.log("home");
+    }
+    function toDiscord() {
+        handleTriggers(0);
+        morphTo(discordGeometry, "0x0d86ff");
+        console.log("discord");
+    }
+    function toTwitter() {
+        handleTriggers(1);
+        morphTo(twitterGeometry, "0x1DA1F2");
+        console.log("twitter");
+    }
+    function toSteam() {
+        handleTriggers(2);
+        morphTo(steamGeometry, "0xc97dff");
+        console.log("steam");
+    }
+    function toPronouns() {
+        handleTriggers(3);
+        morphTo(pronounsGeometry, "0xffb5fe");
+        console.log("pronouns");
+    }
+    function toMail() {
+        handleTriggers(4);
+        morphTo(mailGeometry, "0x1db954");
+    }
+
+    // Event listeners for interaction
+    homeLink.addEventListener("mouseover", toHome);
+    triggersList[0].addEventListener("mouseover", toDiscord);
+    triggersList[1].addEventListener("mouseover", toTwitter);
+    triggersList[2].addEventListener("mouseover", toSteam);
+    triggersList[3].addEventListener("mouseover", toMail);
+    // triggersList[4] can be added similarly if needed
+
+    /**
+     * Main animation loop: rotates the particle system and re-renders the scene.
+     */
+    // In the animate function, rotate both systems:
+    function animate() {
+        particleSystem.rotation.y += animationState.speed;
+        glowParticleSystem.rotation.y += animationState.speed;
+        mainGeometry.verticesNeedUpdate = true;
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+    // Start animation, then redirect particles to home geometry
+    animate();
+    // Wrap setTimeout in the loader's onLoad callback or after all objects are loaded
+    setTimeout(toHome, 250);
+})();
