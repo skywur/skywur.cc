@@ -8,10 +8,8 @@
      */
 
     // Early exit for small viewports, but re-check if window is resized
-    if (window.innerWidth <= 768) {
         function onResize() {
             if (window.innerWidth > 768) {
-                window.removeEventListener("resize", onResize);
                 // Continue here if window becomes larger than 768
 
                 // Particle configuration
@@ -269,6 +267,6 @@
                     }
                     window.addEventListener("resize", onResize);
                     return;
-                }
+                
             
 })();
